@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="LessTint">
+        <attr name="less_tint" format="reference" />
+        <attr name="less_tint_type" format="enum">
+            <enum name="none" value="0" />
+            <enum name="override" value="1" />
+            <enum name="overlay" value="2" />
+        </attr>
+    </declare-styleable>
+</resources>
