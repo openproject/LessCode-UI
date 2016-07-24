@@ -30,7 +30,31 @@ public class LessImageView extends ImageView implements ILessTint {
 
         mTintColorStateList = a.getColorStateList(R.styleable.LessTint_less_tint);
         mTintType = a.getInt(R.styleable.LessTint_less_tint_type, LESS_TINT_TYPE_OVERRIDE);
+        a.recycle();
 
+        lessTint();
+    }
+
+    @Override
+    public void setImageDrawable(Drawable drawable) {
+        if (drawable != null) {
+            drawable = lessTintDrawable(drawable);
+        }
+        super.setImageDrawable(drawable);
+
+        if (getBackground() == null) {
+            // set background state List，or the tint above may be not work
+            setBackgroundResource(R.color.less_tint_invalidate_bg);
+        }
+    }
+
+    @Override
+    public void setImageResource(int resId) {
+        Drawable drawable = getResources().getDrawable(resId);
+        setImageDrawable(drawable);
+    }
+
+    private void lessTint() {
         if (mTintColorStateList == null) {
             if (mTintType == LESS_TINT_TYPE_OVERLAY) {
                 mTintColorStateList = getResources().getColorStateList(R.color.less_tint_overlay_color);
@@ -39,19 +63,22 @@ public class LessImageView extends ImageView implements ILessTint {
             }
         }
 
-        if (mTintColorStateList != null/* || mTintType == LessConstant.LESS_TINT_TYPE_OVERLAY*/) {
-
+        if (mTintColorStateList != null) {
             Drawable drawable = getDrawable();
             if (drawable != null) {
-                if (mTintType == LESS_TINT_TYPE_OVERRIDE) {
-                    drawable = DrawableLess.$tint(drawable, mTintColorStateList);
-                } else {
-                    drawable = DrawableLess.$tint(drawable, mTintColorStateList, PorterDuff.Mode.MULTIPLY);
-                }
+                drawable = lessTintDrawable(drawable);
                 setImageDrawable(drawable);
-                // set background state List，or the tint above may be not work
-                setBackgroundResource(R.color.less_tint_invalidate_bg);
             }
         }
+    }
+
+    private Drawable lessTintDrawable(Drawable drawable) {
+        Drawable tintDrawable;
+        if (mTintType == LESS_TINT_TYPE_OVERRIDE) {
+            tintDrawable = DrawableLess.$tint(drawable, mTintColorStateList);
+        } else {
+            tintDrawable = DrawableLess.$tint(drawable, mTintColorStateList, PorterDuff.Mode.MULTIPLY);
+        }
+        return tintDrawable;
     }
 }

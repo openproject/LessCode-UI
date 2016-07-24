@@ -17,4 +17,10 @@
         android:src="@drawable/test"
         app:less_tint_type="overlay" />
 
+    <Button android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="64dp"
+        android:text="换背景"/>
+
 </RelativeLayout>
