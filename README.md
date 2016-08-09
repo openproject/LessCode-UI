@@ -14,6 +14,16 @@ compile('com.jayfeng:lesscode-ui:0.1.1')
 ```
 
 ## Usage
+使用LessImageView替代ImageView（overlay表示按下为加深效果）:
+
+```xml
+<com.jayfeng.lesscode.ui.LessImageView
+    android:id="@+id/test"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:src="@drawable/test"
+    app:less_tint_type="overlay" />
+```
 
 ## Author
 
